@@ -1,0 +1,10 @@
+target/
+.settings/
+.vscode/
+music/
+config.json
+*.mp3
+*.ogg
+list.json
+ffmpeg.exe
+*.jar
