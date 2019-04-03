@@ -9,9 +9,6 @@ public class Program {
 
     public static void main(String[] args) {
         Config config = new Config("./config.json");
-        if (config == null) {
-            return;
-        }
         // System.out.println(args);
         SpotigoClient client = new SpotigoClient(config.spotigoHost, config.spotigoPass);
         DownloadList list = new DownloadList("list.json");
@@ -37,9 +34,5 @@ public class Program {
             }
         }
         System.out.println("Program - Finished adding tracks and albums");
-    }
-
-    private static void loadConfig() {
-        
     }
 }
