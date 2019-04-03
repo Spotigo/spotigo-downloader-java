@@ -52,13 +52,19 @@ public class TrackDownloader extends Thread {
     public void run() {
         try {
             String title = cleanString(track.title);
+            String tempOgg = "./temp_" + title + ".ogg";
+            String tempMp3 = "./temp_" + title + ".mp3";
+
             System.out.println(track.title + " - Starting!");
-            downloadFile(new URL(track.streamURL), new File("./temp_" + title + ".ogg"));
+            this.downloadFile(new URL(track.streamURL), new File(tempOgg));
             System.out.println(track.title + " - Finished downloading!");
-            convertTrack("./temp_" + title + ".ogg", "./temp_" + title + ".mp3");
+            this.convertTrack(tempOgg, tempMp3);
             System.out.println(track.title + " - Finished converting!");
-            setMP3TrackInfo("./temp_" + title + ".mp3", track);
+            this.setMP3TrackInfo(tempMp3, track);
             System.out.println(track.title + " - Finished!");
+
+            new File(tempOgg).delete();
+            new File(tempMp3).delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
