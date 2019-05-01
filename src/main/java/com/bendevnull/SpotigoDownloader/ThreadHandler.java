@@ -27,7 +27,6 @@ public class ThreadHandler extends Thread {
                     running.remove(t);
                 }
             }
-        }   
-        System.out.println("ThreadHandler - All threads finished!");
+        }
     }
 }
