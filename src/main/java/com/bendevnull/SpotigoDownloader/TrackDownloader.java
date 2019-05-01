@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
+import com.google.common.eventbus.EventBus;
 import com.joshuadoes.Spotigo.Album;
 import com.joshuadoes.Spotigo.SpotigoClient;
 import com.joshuadoes.Spotigo.SpotigoGID;
@@ -27,6 +28,8 @@ public class TrackDownloader extends Thread {
     private Config config;
     private Track track;
     private Album album;
+
+    private EventBus eventBus = EventBusFactory.getEventBus();
 
     public TrackDownloader(SpotigoClient client, String trackURL, Config config, Album album) {
         this.client = client;
@@ -65,6 +68,9 @@ public class TrackDownloader extends Thread {
 
             new File(tempOgg).delete();
             new File(tempMp3).delete();
+
+            DownloadFinishedEvent event = new DownloadFinishedEvent(this);
+            eventBus.post(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,5 +154,9 @@ public class TrackDownloader extends Thread {
                 .replace("\'", "")
                 .replace("/", ",")
                 .trim();
+    }
+
+    public Track getTrack() {
+        return this.track;
     }
 }
