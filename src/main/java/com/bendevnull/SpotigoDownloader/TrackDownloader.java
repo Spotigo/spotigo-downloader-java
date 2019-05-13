@@ -30,6 +30,8 @@ public class TrackDownloader extends Thread {
     private Album album;
 
     private EventBus eventBus = EventBusFactory.getEventBus();
+    
+    public File newFile;
 
     public TrackDownloader(SpotigoClient client, String trackURL, Config config, Album album) {
         this.client = client;
@@ -66,8 +68,8 @@ public class TrackDownloader extends Thread {
             this.setMP3TrackInfo(tempMp3, track);
             System.out.println(track.title + " - Finished!");
 
-            new File(tempOgg).delete();
             new File(tempMp3).delete();
+            new File(tempOgg).delete();
 
             DownloadFinishedEvent event = new DownloadFinishedEvent(this);
             eventBus.post(event);
@@ -112,7 +114,7 @@ public class TrackDownloader extends Thread {
             } else {
                 newTrackName = track.number + " " + cleanString(track.title) + ".mp3";
             }
-            File newFile = new File(albumFolder.getAbsolutePath(), newTrackName);
+            newFile = new File(albumFolder.getAbsolutePath(), newTrackName);
 
             mp3.setId3v1Tag(tag1);
             mp3.setId3v2Tag(tag2);

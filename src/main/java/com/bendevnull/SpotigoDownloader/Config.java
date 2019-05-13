@@ -10,9 +10,9 @@ import org.json.simple.parser.ParseException;
 
 public class Config {
 
-    public String spotigoHost;
-    public String spotigoPass;
-    public String musicDir;
+    public String spotigoHost = "";
+    public String spotigoPass = "";
+    public String musicDir = "";
 
     public Config(String filename) {
         JSONObject json = this.loadFile(filename);
@@ -22,6 +22,10 @@ public class Config {
 
     public Config(JSONObject json) {
         this.parseConfig(json);
+    }
+
+    public Config() {
+
     }
 
     private void parseConfig(JSONObject json) {
